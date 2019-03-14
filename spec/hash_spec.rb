@@ -14,7 +14,7 @@ card_details = [
   { num: '5423661657234057',
     exp: 'Feb-30-2020',
     name: 'Lee Chen',
-    net: 'Mastercard' }
+    net: 'Mastercard' },
 ]
 
 cards = card_details.map do |c|
@@ -25,12 +25,37 @@ describe 'Test hashing requirements' do
   describe 'Test regular hashing' do
     describe 'Check hashes are consistently produced' do
       # TODO: Check that each card produces the same hash if hashed repeatedly
+      it "test card if hash repeatedly 10 times but still consistent" do 
+        cards.each do |card|
+          #puts "Test on card #:#{i}\n"
+          first_obj = Hash.new
+          count = 1
+          1.upto(10) do |x|
+            obj=card.hash
+            if count > 0
+              first_obj =obj
+              count -= 1
+            end
+            obj.must_equal first_obj 
+          end
+        end
+      end
     end
+  end  
 
-    describe 'Check for unique hashes' do
-      # TODO: Check that each card produces a different hash than other cards
+  describe 'Check for unique hashes' do
+    # TODO: Check that each card produces a different hash than other cards
+    it "test if each card produce unigue hashes from each other" do
+      cards.each do |curr_card|
+        0.upto ((cards.size - 1)) do |x|
+          if curr_card != cards[x]
+           curr_card.hash.wont_equal cards[x].hash
+          end
+        end
+      end
     end
   end
+  
 
   describe 'Test cryptographic hashing' do
     describe 'Check hashes are consistently produced' do
