@@ -7,5 +7,49 @@ module LuhnValidator
     nums_a = number.to_s.chars.map(&:to_i)
 
     # TODO: use the integers in nums_a to validate its last check digit
+    cred_num = []
+    nums_a.each do |i|
+      cred_num.push(i.to_i)
+    end
+
+    # Luhn algorithms
+    # first sum the odd positioned numbers
+    # then sum the doubles of even postioned numbers
+    # with two digit values added together instead.
+    sum_odd = 0
+    sum_doubled_even = 0
+    position = cred_num.size
+
+    cred_num.each do |val|
+      if (position % 2).zero? # do this if position is even
+        double_even = val * 2
+        if double_even >= 10 # do this to 2 digit values(add them together)
+          two_dig_dum = (double_even % 10) + (double_even / 10)
+          sum_doubled_even += two_dig_dum
+          # puts "p = #{position}, val= #{val}, double =#{double_even}, 2digSum=#{twoDigSum}, sum_even_doub=#{sum_doubled_even}"
+        else
+          sum_doubled_even += double_even
+          # puts "p = #{position}, val= #{val}, double =#{double_even}, 2digSum=#{twoDigSum}, sum_even_doub=#{sum_doubled_even}"
+        end
+      else # do this if position is odd.
+        sum_odd += val * 1
+        # puts "p = #{position}, val= #{val}, double =#{double_even}, 2digSum=#{twoDigSum}, sum_odd=#{sum_odd}"
+      end
+      position -= 1 # decrement position
+    end
+
+    # puts "nums_a = #{nums_a}"
+    # puts "cred_num = #{cred_num}"
+    # puts "sum_odd = #{sum_odd}"
+    # puts "sum_doubled_even = #{sum_doubled_even}"
+    # puts "\n"
+
+    # Then check the if sums of the sum_odd and sum_doubled_even added  
+    # to a value divisible by 10 
+    if ((sum_doubled_even + sum_odd) % 10).zero? # last digit must == 0
+      return true
+    else
+      return false
+    end
   end
 end
