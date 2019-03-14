@@ -1,8 +1,10 @@
 module LuhnValidator
+  # frozen_string_literal: true
   # Validates credit card number using Luhn Algorithm
   # arguments: none
   # assumes: a local String called 'number' exists
   # returns: true/false whether last digit is correct
+  
   def validate_checksum
     nums_a = number.to_s.chars.map(&:to_i)
 
@@ -35,12 +37,9 @@ module LuhnValidator
       position -= 1 # decrement position
     end
 
-    # Then check the if sums of the sum_odd and sum_doubled_even added  
-    # to a value divisible by 10 
-    if ((sum_doubled_even + sum_odd) % 10).zero? # last digit must == 0
-      return true
-    else
-      return false
-    end
+    # Then check the if sums of the sum_odd and sum_doubled_even added
+    # to a value divisible by 10
+    return true if ((sum_doubled_even + sum_odd) % 10).zero?
+    return false if ((sum_doubled_even + sum_odd) % 10) != 0
   end
 end
