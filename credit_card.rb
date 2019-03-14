@@ -13,17 +13,16 @@ class CreditCard
     @expiration_date = expiration_date
     @owner = owner
     @credit_network = credit_network
-
   end
 
   # returns json string
   def to_json
     {
       # TODO: setup the hash with all instance vairables to serialize into json
-      "Number":@number,
-      "Exp_date":@expiration_date,
-      "Owner":@owner,
-      "Cred_network":@credit_network
+      "Number": @number,
+      "Exp_date": @expiration_date,
+      "Owner": @owner,
+      "Cred_network": @credit_network
     }.to_json
   end
 
@@ -35,8 +34,9 @@ class CreditCard
   # return a new CreditCard object given a serialized (JSON) representation
   def self.from_s(card_s)
     # TODO: deserializing a CreditCard object
-      data = JSON.load card_s
-      self.new data['Number'], data['Exp_date'], data['Owner'], data['Cred_network']
+    data = JSON.parse(card_s)
+    self.new data['Number'], data['Exp_date'],
+             data['Owner'], data['Cred_network']
   end
 
   # return a hash of the serialized credit card object

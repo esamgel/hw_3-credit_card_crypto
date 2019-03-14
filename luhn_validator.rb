@@ -26,23 +26,14 @@ module LuhnValidator
         if double_even >= 10 # do this to 2 digit values(add them together)
           two_dig_dum = (double_even % 10) + (double_even / 10)
           sum_doubled_even += two_dig_dum
-          # puts "p = #{position}, val= #{val}, double =#{double_even}, 2digSum=#{twoDigSum}, sum_even_doub=#{sum_doubled_even}"
         else
           sum_doubled_even += double_even
-          # puts "p = #{position}, val= #{val}, double =#{double_even}, 2digSum=#{twoDigSum}, sum_even_doub=#{sum_doubled_even}"
         end
       else # do this if position is odd.
         sum_odd += val * 1
-        # puts "p = #{position}, val= #{val}, double =#{double_even}, 2digSum=#{twoDigSum}, sum_odd=#{sum_odd}"
       end
       position -= 1 # decrement position
     end
-
-    # puts "nums_a = #{nums_a}"
-    # puts "cred_num = #{cred_num}"
-    # puts "sum_odd = #{sum_odd}"
-    # puts "sum_doubled_even = #{sum_doubled_even}"
-    # puts "\n"
 
     # Then check the if sums of the sum_odd and sum_doubled_even added  
     # to a value divisible by 10 
