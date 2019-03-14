@@ -28,15 +28,15 @@ describe 'Test hashing requirements' do
       it "test card if hash repeatedly 10 times but still consistent" do 
         cards.each do |card|
           #puts "Test on card #:#{i}\n"
-          first_obj = Hash.new
+          first_hash = Hash.new
           count = 1
-          1.upto(10) do |x|
-            obj=card.hash
+          1.upto(10) do |x| # repreated hash card obj 10 times
+            repeated_hash=card.hash
             if count > 0
-              first_obj =obj
+              first_hash = repeated_hash
               count -= 1
             end
-            obj.must_equal first_obj 
+            repeated_hash.must_equal first_hash 
           end
         end
       end
